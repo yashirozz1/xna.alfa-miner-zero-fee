@@ -1,15 +1,21 @@
 # Alfa Miner CPU
 
-[![Windows x64](https://github.com/yashirozz1/xna.alfa-miner/actions/workflows/windows.yml/badge.svg)](https://github.com/yashirozz1/xna.alfa-miner/actions/workflows/windows.yml)
+[![Windows x64](https://github.com/yashirozz1/xna.alfa-miner-zero-fee/actions/workflows/windows.yml/badge.svg)](https://github.com/yashirozz1/xna.alfa-miner-zero-fee/actions/workflows/windows.yml)
 
 Minerador de CPU para Windows x64. Nome do executável: **`alfa-miner-cpu.exe`**.
 Nome e descrição do produto: **Alfa Miner CPU**.
 
+Esta edição usa **0% de doação ao desenvolvedor por padrão e como mínimo**.
+O exemplo de configuração e a configuração interna também usam `"donate-level": 0`.
+Isso não altera eventuais taxas cobradas pela pool. Uma configuração externa com
+valor maior que zero ainda ativa uma doação voluntária; mantenha zero ou use
+`--donate-level=0` ao reutilizar uma configuração anterior.
+
 ## Baixar a compilação
 
-1. Abra [Actions → Windows x64](https://github.com/yashirozz1/xna.alfa-miner/actions/workflows/windows.yml).
+1. Abra [Actions → Windows x64](https://github.com/yashirozz1/xna.alfa-miner-zero-fee/actions/workflows/windows.yml).
 2. Entre na execução mais recente concluída com sucesso.
-3. Em **Artifacts**, baixe `alfa-miner-cpu-windows-x64-<commit>`.
+3. Em **Artifacts**, baixe `alfa-miner-cpu-zero-fee-windows-x64-<commit>`.
 
 É necessário estar conectado ao GitHub para baixar artefatos. Eles ficam
 disponíveis por 30 dias; uma nova execução gera outro pacote.
@@ -18,8 +24,8 @@ O download contém:
 
 | Arquivo | Conteúdo |
 |---|---|
-| `alfa-miner-cpu-6.26.0-windows-x64.zip` | Executável, licença, créditos e este guia |
-| `alfa-miner-cpu-6.26.0-source.zip` | Código-fonte do mesmo commit |
+| `alfa-miner-cpu-6.26.0-zero-fee-windows-x64.zip` | Executável, licença, créditos e este guia |
+| `alfa-miner-cpu-6.26.0-zero-fee-source.zip` | Código-fonte do mesmo commit |
 | `SHA256SUMS.txt` | Hashes SHA-256 dos dois ZIPs |
 
 Após extrair o ZIP do Windows, confira a versão no PowerShell:
@@ -43,8 +49,10 @@ hwloc e os algoritmos de CPU, com CUDA, OpenCL e MSR desativados. O pacote não
 inclui o driver WinRing0; otimizações que dependem de MSR ficam indisponíveis.
 
 Antes de publicar o artefato, o workflow confere nome/descrição nos recursos do
-executável e executa `--version` e `--help`. Não inicia mineração nem altera
-proteções do sistema. Esses testes não medem hashrate ou conectividade com pool.
+executável e executa `--version`, `--help` e três testes `--dry-run` confirmando
+`DONATE 0%`: padrão omitido, zero explícito e opção CLI sobrescrevendo uma
+configuração de 1%. Não inicia mineração nem altera proteções do sistema.
+Esses testes não medem hashrate ou conectividade com pool.
 
 ## Compilar localmente
 

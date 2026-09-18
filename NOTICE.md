@@ -11,9 +11,10 @@ Consulte [LICENSE](LICENSE) e [README.upstream.md](README.upstream.md).
 - Commit das dependências: `ddfb65ec8bf4803a6c1c2037969546d018c76b54`
 
 Alterações: nome e descrição exibidos, nome do executável, configuração de
-compilação CPU e workflow do GitHub Actions. O identificador de agente de rede
-original permanece preservado. Algoritmos, protocolo e doação upstream não foram
-alterados. O perfil distribuído não usa CUDA, OpenCL ou modificação MSR; o driver
+compilação CPU e workflow do GitHub Actions. A doação padrão e mínima foi alterada
+para 0%, incluindo os exemplos e a configuração interna. O identificador de agente
+de rede original permanece preservado. Algoritmos e protocolo não foram alterados.
+O perfil distribuído não usa CUDA, OpenCL ou modificação MSR; o driver
 WinRing0 não é incluído.
 
 O artefato de cada execução acompanha um arquivo ZIP com o código-fonte

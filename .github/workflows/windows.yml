@@ -45,7 +45,7 @@ jobs:
       - name: Upload binary, source and checksums
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: alfa-miner-cpu-windows-x64-${{ github.sha }}
+          name: alfa-miner-cpu-zero-fee-windows-x64-${{ github.sha }}
           path: dist/*
           if-no-files-found: error
           retention-days: 30
