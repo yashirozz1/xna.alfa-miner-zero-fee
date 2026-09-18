@@ -72,7 +72,9 @@ int xmrig::App::exec()
         return rc;
     }
 
-    if (!m_controller->isBackground()) {
+    // Dry-run exits before the event loop and needs no interactive input handle.
+    // A Windows CI stdin pipe is not necessarily a valid libuv TTY.
+    if (!m_controller->isBackground() && !m_controller->config()->isDryRun()) {
         m_console = std::make_shared<Console>(this);
     }
 

@@ -17,6 +17,10 @@ de rede original permanece preservado. Algoritmos e protocolo não foram alterad
 O perfil distribuído não usa CUDA, OpenCL ou modificação MSR; o driver
 WinRing0 não é incluído.
 
+O modo `--dry-run` não inicializa leitura interativa de teclado, pois termina
+antes do loop de eventos. Isso evita tratar a entrada redirecionada do runner
+Windows como um terminal interativo durante a validação.
+
 O artefato de cada execução acompanha um arquivo ZIP com o código-fonte
 correspondente ao commit compilado. As dependências externas são fixadas acima;
 suas licenças e fontes estão documentadas no repositório correspondente.

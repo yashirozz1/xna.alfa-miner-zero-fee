@@ -70,7 +70,7 @@ try {
         $checkExit = $LASTEXITCODE
         $checkText = ($checkOutput -join "`n") -replace '\x1b\[[0-9;]*m', ''
         if ($checkExit -ne 0 -or $checkText -notmatch 'DONATE\s+0%') {
-            throw "Donation smoke test '$case' failed: $checkText"
+            throw "Donation smoke test '$case' failed (exit $checkExit): $checkText"
         }
         Write-Output "Donation smoke test '$case' passed: DONATE 0%"
     }
