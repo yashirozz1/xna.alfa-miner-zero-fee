@@ -48,7 +48,8 @@ char *xmrig::Platform::createUserAgent()
     constexpr const size_t max = 256;
 
     char *buf = new char[max]();
-    int length = snprintf(buf, max, "%s/%s (Linux ", APP_NAME, APP_VERSION);
+    // Preserve the upstream mining agent identity independently of display branding.
+    int length = snprintf(buf, max, "%s/%s (Linux ", "XMRig", APP_VERSION);
 
 #   if defined(__x86_64__)
     length += snprintf(buf + length, max - length, "x86_64) libuv/%s", uv_version_string());

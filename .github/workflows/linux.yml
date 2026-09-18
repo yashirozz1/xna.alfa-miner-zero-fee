@@ -1,0 +1,56 @@
+name: Linux x64
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: linux-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build on Ubuntu 22.04
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends build-essential cmake automake libtool autoconf pkg-config wget perl python3 file
+      - name: Build, verify and package
+        run: bash ci/build-linux.sh
+      - name: Upload Linux binary, source and checksums
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: alfa-miner-cpu-zero-fee-linux-x64-${{ github.sha }}
+          path: dist/linux/*
+          if-no-files-found: error
+          retention-days: 30
+  ubuntu24:
+    name: Verify package on Ubuntu 24.04
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: alfa-miner-cpu-zero-fee-linux-x64-${{ github.sha }}
+          path: dist/linux
+      - name: Verify checksums, extract and test
+        run: |
+          cd dist/linux
+          sha256sum -c SHA256SUMS.txt
+          tar -xzf alfa-miner-cpu-6.26.0-zero-fee-linux-x64.tar.gz
+          python3 ../../ci/check-linux.py alfa-miner-cpu-6.26.0-zero-fee-linux-x64/alfa-miner-cpu
